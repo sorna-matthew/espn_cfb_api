@@ -11,15 +11,19 @@ class FBS:
         conferenceIds = [1, 151, 5, 4, 12, 18, 15, 17, 9, 8, 37]
         return [Conference(conferenceId) for conferenceId in conferenceIds]
     
-    def getAPTop25Teams(self, weekNumber=None):
-        apTop25TeamsList = list()
+    def getTop25Teams(self, weekNumber=None, rankingType = 'cfp'):
+        Top25TeamsList = list()
         url = f'http://site.api.espn.com/apis/site/v2/sports/football/college-football/rankings?seasons={self.year}&weeks={weekNumber}'
         req = requests.get(url)
         data = req.json()
         
-        ranks = data['rankings'][0]['ranks']
-        apTop25TeamsList = [Team(teamId = int(rank['team']['id'])) for rank in ranks]
-        return tuple(apTop25TeamsList)
+        rankings = data['rankings']
+        for ranking in rankings:
+            if ranking['type'] == rankingType:
+                ranks = ranking['ranks']        
+                Top25TeamsList = [Team(teamId = int(rank['team']['id'])) for rank in ranks]
+                return tuple(Top25TeamsList)
+        return None
 
 class Conference:
     def __init__(self, conferenceId=None, divisionId=None):

@@ -8,8 +8,8 @@ from matplotlib import pyplot as plt, lines
 week_num = 10
 
 fbs = cfb.FBS()
-ap = fbs.getAPTop25Teams(weekNumber=week_num)
-apIds = [team.teamId for team in ap]
+tp25 = fbs.getTop25Teams(weekNumber=week_num, rankingType = 'cfp')
+tp25Ids = [team.teamId for team in tp25]
 for conference in fbs.getConferences():
     matchupLines = list()
     matchupText = list()
@@ -30,19 +30,19 @@ for conference in fbs.getConferences():
                 matchupLines.append((dotted_line1, dotted_line2))
             if homeWinProb[-1] > 50:
                 awayText = f'{matchup.awayTeam.displayName}'
-                if matchup.awayTeam.teamId in apIds:
-                    awayText = f'#{str(apIds.index(matchup.awayTeam.teamId)+1)} ' + awayText
+                if matchup.awayTeam.teamId in tp25Ids:
+                    awayText = f'#{str(tp25Ids.index(matchup.awayTeam.teamId)+1)} ' + awayText
                 homeText = f'$\\bf{matchup.homeTeam.location}$ $\\bf{matchup.homeTeam.name}$'
-                if matchup.homeTeam.teamId in apIds:
-                    homeText = f'#{str(apIds.index(matchup.homeTeam.teamId)+1)} ' + homeText
+                if matchup.homeTeam.teamId in tp25Ids:
+                    homeText = f'#{str(tp25Ids.index(matchup.homeTeam.teamId)+1)} ' + homeText
                 matchupText.append(awayText+' vs. '+homeText)
             if homeWinProb[-1] < 50:
                 awayText = f'$\\bf{matchup.awayTeam.location}$ $\\bf{matchup.awayTeam.name}$'
-                if matchup.awayTeam.teamId in apIds:
-                    awayText = f'#{str(apIds.index(matchup.awayTeam.teamId)+1)} ' + awayText
+                if matchup.awayTeam.teamId in tp25Ids:
+                    awayText = f'#{str(tp25Ids.index(matchup.awayTeam.teamId)+1)} ' + awayText
                 homeText = f'{matchup.homeTeam.displayName}'
-                if matchup.homeTeam.teamId in apIds:
-                    homeText = f'#{str(apIds.index(matchup.homeTeam.teamId)+1)} ' + homeText
+                if matchup.homeTeam.teamId in tp25Ids:
+                    homeText = f'#{str(tp25Ids.index(matchup.homeTeam.teamId)+1)} ' + homeText
                 matchupText.append(awayText+' vs. '+homeText)
 
     plt.title(conference.conferenceName + f' [Week {week_num}]')
