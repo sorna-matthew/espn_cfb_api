@@ -124,9 +124,9 @@ class Team:
                 if weekNumber == game['week']['number']:
                     gameList = Game(gameId = int(game['id']))
         if isinstance(gameList, list):
-            return None
-        else:
-            return gameList
+            if len(gameList) == 0:
+                return None
+        return gameList
         
 class Game:
     def __init__(self, gameId=None):
