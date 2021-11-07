@@ -8,10 +8,18 @@ FBS is the highest level class, which contains the hard-coded conferenceIds for 
 
 ***Methods***:
 ```python
-def getAPTop25Teams(weekNumber = None)
+def getTop25Teams(weekNumber = None, rankingType = 'cfp')
 ```
-Returns a list of Teams( ) as ranked by the AP poll for a given week.
-*Note: CFP rankings will be added either as a new method, or a more general method with a ranking type will be developed soon.*
+Returns a list of Teams( ) as ranked by the specified poll for a given week.
+
+Available argument for `rankingType` include: 
+
+'ap' [AP Poll]
+
+'cfp' [College Football Playoff] (from Week 10 onwards)
+
+'usa' [Coaches Poll]
+
 ## Conference:
 The only argument to initialize the Conference object is the conferenceId as defined by ESPN. Example:
 The SEC is given a conferenceId of 8.
@@ -26,15 +34,15 @@ Southeastern Conference
 ```
 ***Attributes***:
 
-```conferenceId```, integer designated by ESPN for each FBS conference
+`conferenceId`, integer designated by ESPN for each FBS conference
 
-```conferenceName```, long-form string of the conference name
+`conferenceName`, long-form string of the conference name
 
 *If the conference object is retrieved from a Team object, the divisionId and divisionName are also accessible. Example:*
 
-```divisionId```, integer designated by ESPN for each FBS conference division
+`divisionId`, integer designated by ESPN for each FBS conference division
 
-```divisionName```, string of the division name
+`divisionName`, string of the division name
 
 ```python
 team = Team(teamId = 2)
@@ -93,7 +101,7 @@ LSU Tigers
 def getMatchups(weekNumber = None)
 ```
 
-Returns a list of Game( ) of a given week featuring conference members. Any duplicates should be skipped so only unique Games are returned.
+Returns a list of Game objects of a given week featuring conference members. Any duplicates should be skipped so only unique Games are returned.
 
 ```python
 c = Conference(conferenceId = 8)
