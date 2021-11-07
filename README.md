@@ -8,7 +8,7 @@ FBS is the highest level class, which contains the hard-coded conferenceIds for 
 
 ***Methods***:
 ```python
-getAPTop25Teams(weekNumber = None)
+def getAPTop25Teams(weekNumber = None)
 ```
 Returns a list of Teams( ) as ranked by the AP poll for a given week.
 *Note: CFP rankings will be added either as a new method, or a more general method with a ranking type will be developed soon.*
@@ -24,8 +24,94 @@ Output:
 ```
 Southeastern Conference
 ```
-...
-***README to be updated soon***
+***Attributes***:
+
+```conferenceId```, integer designated by ESPN for each FBS conference
+
+```conferenceName```, long-form string of the conference name
+
+*If the conference object is retrieved from a Team object, the divisionId and divisionName are also accessible. Example:*
+
+```divisionId```, integer designated by ESPN for each FBS conference division
+
+```divisionName```, string of the division name
+
+```python
+team = Team(teamId = 2)
+print(team.displayName)
+c = team.getConference()
+
+print(c.conferenceId)
+print(c.conferenceName)
+print(c.divisionId)
+print(c.divisionName)
+```
+
+Output:
+```
+Auburn Tigers
+8
+Southeastern Conference
+7
+SEC - West
+```
+
+
+***Methods***:
+
+```python
+def getTeams()
+```
+Returns a list of teams for a given Conference object.
+
+```python
+c = Conference(conferenceId = 8)
+teams = c.getTeams()
+for team in teams:
+    print(team.displayName)
+```
+
+Output:
+```
+Georgia Bulldogs
+Kentucky Wildcats
+Tennessee Volunteers
+South Carolina Gamecocks
+Florida Gators
+Missouri Tigers
+Vanderbilt Commodores
+Alabama Crimson Tide
+Texas A&M Aggies
+Ole Miss Rebels
+Auburn Tigers
+Arkansas Razorbacks
+Mississippi State Bulldogs
+LSU Tigers
+```
+
+```python
+def getMatchups(weekNumber = None)
+```
+
+Returns a list of tuples in the form (Team( ), Team( )) with (Home, Away) for any matchups of a given week featuring conference members. Any duplicates should be skipped so only unique matchups are returned.
+
+```python
+c = Conference(conferenceId = 8)
+matchups = c.getMatchups(weekNumber = 10)
+
+for matchup in matchups:
+    print(matchup[1].displayName + ' at ' + matchup[0].displayName)
+```
+Output:
+```
+Missouri Tigers at Georgia Bulldogs
+Tennessee Volunteers at Kentucky Wildcats
+Florida Gators at South Carolina Gamecocks
+LSU Tigers at Alabama Crimson Tide
+Auburn Tigers at Texas A&M Aggies
+Liberty Flames at Ole Miss Rebels
+Mississippi State Bulldogs at Arkansas Razorbacks
+```
 
 # Example
 Import the library and list the names and record of each team, by FBS division
