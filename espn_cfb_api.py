@@ -60,17 +60,16 @@ class Conference:
             skip = False
             game = team.getSchedule(weekNumber = weekNumber)
             if game is not None:
-                pMatchup = (game.homeTeam, game.awayTeam)
                 if len(matchups) > 0:
                     for matchup in matchups:
-                        matchupIds = [t.teamId for t in matchup]
+                        matchupIds = [matchup.homeTeam.teamId, matchup.awayTeam.teamId]
                         if team.teamId in matchupIds:
                             skip = True
                             
                     if not skip:
-                        matchups.append(pMatchup)
+                        matchups.append(game)
                 else:
-                    matchups.append(pMatchup)
+                    matchups.append(game)
         return matchups
         
 class Team:

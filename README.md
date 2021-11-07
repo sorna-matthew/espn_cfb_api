@@ -93,14 +93,14 @@ LSU Tigers
 def getMatchups(weekNumber = None)
 ```
 
-Returns a list of tuples in the form (Team( ), Team( )) with (Home, Away) for any matchups of a given week featuring conference members. Any duplicates should be skipped so only unique matchups are returned.
+Returns a list of Game( ) of a given week featuring conference members. Any duplicates should be skipped so only unique Games are returned.
 
 ```python
 c = Conference(conferenceId = 8)
 matchups = c.getMatchups(weekNumber = 10)
 
 for matchup in matchups:
-    print(matchup[1].displayName + ' at ' + matchup[0].displayName)
+    print(matchup.awayTeam.displayName + ' at ' + matchup.homeTeam.displayName)
 ```
 Output:
 ```

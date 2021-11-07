@@ -1,1 +1,0 @@
-This folder contains several examples of how to use the espn_cfb_api
