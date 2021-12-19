@@ -10,10 +10,10 @@ week_num = 14
 fbs = cfb.FBS()
 tp25 = fbs.getTop25Teams(weekNumber=week_num, rankingType = 'cfp')
 tp25Ids = [team.teamId for team in tp25]
+fig = plt.figure(figsize=(14,8), dpi = 120)
+matchupLines = list()
+matchupText = list()
 for conference in fbs.getConferences():
-    matchupLines = list()
-    matchupText = list()
-    fig = plt.figure(figsize=(14,8), dpi = 120)
     matchups = conference.getMatchups(weekNumber = week_num)
     for matchup in matchups:
         homeColor = matchup.homeTeam.hexColor
@@ -45,30 +45,30 @@ for conference in fbs.getConferences():
                     homeText = f'#{str(tp25Ids.index(matchup.homeTeam.teamId)+1)} ' + homeText
                 matchupText.append(awayText+' vs. '+homeText)
 
-    plt.title(conference.conferenceName + f' [Week {week_num}]')
-    plt.ylabel('Home Team Win Probability [%]')
-    plt.xlabel('Game Progression [%]')
-    plt.legend(matchupLines, matchupText, loc = 'lower left', fontsize=6)
-    plt.xlim([-1,101])
-    plt.ylim([-1, 101])
-    
-    # Major ticks every 25, minor ticks every 5
-    ax = fig.axes[0]
-    major_ticks = np.arange(0, 101, 25)
-    minor_ticks = np.arange(0, 101, 5)
-    
-    ax.set_xticks(major_ticks)
-    ax.set_xticks(minor_ticks, minor=True)
-    ax.set_yticks(major_ticks)
-    ax.set_yticks(minor_ticks, minor=True)
-    
-    # And a corresponding grid
-    ax.grid(which='both')
-    
-    # Or if you want different settings for the grids:
-    ax.grid(which='minor', alpha=0.2)
-    ax.grid(which='major', alpha=0.5)
-    
-    filename = conference.conferenceName.replace(' ', '_') + '_week_' + str(week_num) + '.png'
-    fig.savefig(filename, facecolor = 'lightgray')
-    plt.close(fig)
+plt.title(f' [Week {week_num}]')
+plt.ylabel('Home Team Win Probability [%]')
+plt.xlabel('Game Progression [%]')
+plt.legend(matchupLines, matchupText, loc = 'lower left', fontsize=6)
+plt.xlim([-1,101])
+plt.ylim([-1, 101])
+
+# Major ticks every 25, minor ticks every 5
+ax = fig.axes[0]
+major_ticks = np.arange(0, 101, 25)
+minor_ticks = np.arange(0, 101, 5)
+
+ax.set_xticks(major_ticks)
+ax.set_xticks(minor_ticks, minor=True)
+ax.set_yticks(major_ticks)
+ax.set_yticks(minor_ticks, minor=True)
+
+# And a corresponding grid
+ax.grid(which='both')
+
+# Or if you want different settings for the grids:
+ax.grid(which='minor', alpha=0.2)
+ax.grid(which='major', alpha=0.5)
+
+filename = 'Conference_Championships' + '_week_' + str(week_num) + '.png'
+fig.savefig(filename, facecolor = 'lightgray')
+plt.close(fig)
