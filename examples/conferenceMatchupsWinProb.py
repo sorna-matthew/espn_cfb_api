@@ -5,10 +5,10 @@ import espn_cfb_api as cfb
 import numpy as np
 from matplotlib import pyplot as plt, lines
 
-week_num = 14
+week_num = 3
 
 fbs = cfb.FBS()
-tp25 = fbs.getTop25Teams(weekNumber=week_num, rankingType = 'cfp')
+tp25 = fbs.getTop25Teams(weekNumber=week_num, rankingType = 'ap')
 tp25Ids = [team.teamId for team in tp25]
 for conference in fbs.getConferences():
     matchupLines = list()
@@ -32,12 +32,12 @@ for conference in fbs.getConferences():
                 awayText = f'{matchup.awayTeam.displayName}'
                 if matchup.awayTeam.teamId in tp25Ids:
                     awayText = f'#{str(tp25Ids.index(matchup.awayTeam.teamId)+1)} ' + awayText
-                homeText = f'$\\bf{matchup.homeTeam.location}$ $\\bf{matchup.homeTeam.name}$'
+                homeText = r'$\bf{{{0}}}$ $\bf{{{1}}}$'.format(matchup.homeTeam.location, matchup.homeTeam.name)
                 if matchup.homeTeam.teamId in tp25Ids:
                     homeText = f'#{str(tp25Ids.index(matchup.homeTeam.teamId)+1)} ' + homeText
                 matchupText.append(awayText+' vs. '+homeText)
             if homeWinProb[-1] < 50:
-                awayText = f'$\\bf{matchup.awayTeam.location}$ $\\bf{matchup.awayTeam.name}$'
+                awayText = r'$\bf{{{0}}}$ $\bf{{{1}}}$'.format(matchup.awayTeam.location, matchup.awayTeam.name)
                 if matchup.awayTeam.teamId in tp25Ids:
                     awayText = f'#{str(tp25Ids.index(matchup.awayTeam.teamId)+1)} ' + awayText
                 homeText = f'{matchup.homeTeam.displayName}'

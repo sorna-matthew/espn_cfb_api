@@ -3,7 +3,7 @@ import numpy as np
 
 class FBS:
     def __init__(self):
-        self.year = 2021
+        self.year = 2023
         
     def getConferences(self):
             
@@ -11,7 +11,7 @@ class FBS:
         conferenceIds = [1, 151, 5, 4, 12, 18, 15, 17, 9, 8, 37]
         return [Conference(conferenceId) for conferenceId in conferenceIds]
     
-    def getTop25Teams(self, weekNumber=None, rankingType = 'cfp'):
+    def getTop25Teams(self, weekNumber=None, rankingType = 'ap'):
         Top25TeamsList = list()
         url = f'http://site.api.espn.com/apis/site/v2/sports/football/college-football/rankings?seasons={self.year}&weeks={weekNumber}'
         req = requests.get(url)
@@ -79,7 +79,7 @@ class Conference:
 class Team:
     def __init__(self, teamId=None):
         self.teamId = teamId
-        self.year = 2021 # hard-coded for now to this season
+        self.year = 2023 # hard-coded for now to this season
         self.url = ''
         self.tdata = self.getTeamData()
         
